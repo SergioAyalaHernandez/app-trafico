@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  trafico-back:
+    build:
+      context: ./trafico-back
+      dockerfile: Dockerfile
+    container_name: trafico-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - trafico-network
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  trafico-front:
+    build:
+      context: ./trafico-front
+      dockerfile: Dockerfile
+    container_name: trafico-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - trafico-back
+    networks:
+      - trafico-network
+    restart: unless-stopped
+
+networks:
+  trafico-network:
+    driver: bridge
