@@ -22,7 +22,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist/*/. /usr/share/nginx/html/
 
 # Exponer el puerto 80
-EXPOSE 80
+EXPOSE 4200
 
 # Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]
