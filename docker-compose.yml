@@ -5,6 +5,7 @@ services:
     build:
       context: ./trafico-back
       dockerfile: Dockerfile
+    image: docker.io/library/trafico-back:latest
     container_name: trafico-backend
     ports:
       - "8080:8080"
@@ -18,6 +19,7 @@ services:
     build:
       context: ./trafico-front
       dockerfile: Dockerfile
+    image: docker.io/library/trafico-front:latest
     container_name: trafico-frontend
     ports:
       - "80:80"
