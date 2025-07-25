@@ -1,5 +1,5 @@
  # Etapa de construcción
-FROM gradle:jdk17-alpine AS build
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY . .
 RUN gradle build --no-daemon -x test
