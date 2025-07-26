@@ -22,7 +22,7 @@ services:
     image: docker.io/library/trafico-front:latest
     container_name: trafico-frontend
     ports:
-      - "80:80"
+      - "4200:4200"
     depends_on:
       - trafico-back
     networks:
