@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import {InformesService} from "../../../services/informes.service";
+import {UnidadtransitoService} from "../../../services/unidadtransito.service";
 
 @Component({
   selector: 'app-balance',
@@ -56,6 +57,7 @@ export class BalanceComponent implements OnInit {
   // Datos para tabla de infracciones por unidad
   unidadSeleccionada: string = '1';
   infraccionesPorUnidad: any[] = [];
+  unidades: any[] = [];
 
   // Opciones de gráficos
   barChartOptions: ChartConfiguration['options'] = {
@@ -76,11 +78,19 @@ export class BalanceComponent implements OnInit {
     }
   };
 
-  constructor(private informesService: InformesService) { }
+  constructor(private informesService: InformesService, private unidadTransito: UnidadtransitoService ) { }
 
   ngOnInit(): void {
     this.cargarDatos();
     this.cargarInfraccionesPorUnidad();
+    this.cargarUnidades();
+  }
+
+  cargarUnidades(): void {
+    this.unidadTransito.getAllUnidades().subscribe(data => {
+      this.unidades = data;
+      console.log('Unidades cargadas:', this.unidades);
+    });
   }
 
   cargarDatos(): void {

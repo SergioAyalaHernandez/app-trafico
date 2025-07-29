@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'balance',
     component: BalanceComponent
   },
+  {
+    path: '',
+    component: BalanceComponent
+  },
 ];
 
 @NgModule({

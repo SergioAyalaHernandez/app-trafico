@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {InfraccionService} from '../../../services/infraccion.service';
 import {Infraccion} from '../../../models/infraccion.model';
@@ -12,7 +12,7 @@ import {InfraccionEntity} from "../../../models/infraccion.entity";
   templateUrl: './infraccion.component.html',
   styleUrls: ['./infraccion.component.scss']
 })
-export class InfraccionComponent implements OnInit {
+export class InfraccionComponent implements OnInit, OnDestroy{
   // Variables para modales
   mostrarModalCrear = false;
   mostrarModalVer = false;
@@ -57,6 +57,10 @@ export class InfraccionComponent implements OnInit {
     this.cargarInfracciones();
   }
 
+  ngOnDestroy(): void {
+    this.reiniciarVariables();
+  }
+
   // Método para cargar todas las infracciones
   cargarInfracciones(): void {
     this.infraccionService.obtenerTodasInfracciones().subscribe({
@@ -79,6 +83,7 @@ export class InfraccionComponent implements OnInit {
 
   cerrarModalCrear(): void {
     this.mostrarModalCrear = false;
+    this.reiniciarVariables();
   }
 
   guardarInfraccion(): void {
@@ -268,6 +273,22 @@ export class InfraccionComponent implements OnInit {
           agenteId: ''
         });
       }
+    });
+  }
+
+  reiniciarVariables(): void {
+    this.mostrarModalCrear = false;
+    this.mostrarModalVer = false;
+    this.mostrarModalEditar = false;
+    this.mostrarModalEliminar = false;
+    this.personaSeleccionada = null;
+    this.vehiculoSeleccionado = null;
+    this.agenteSeleccionado = null;
+    this.mostrarSeccionVehiculo = false;
+    this.infraccionSeleccionada = null;
+    this.infraccionForm.reset({
+      importe: 0,
+      estado: 'Activo'
     });
   }
 }

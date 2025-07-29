@@ -76,7 +76,8 @@ export class VehiculoComponent implements OnInit {
 
   cargarVehiculos() {
     this.vehiculoService.obtenerVehiculos().subscribe(data => {
-      this.vehiculos = data;
+      // @ts-ignore
+      this.vehiculos = data.sort((a, b) => a.bastidor - b.bastidor);
     });
   }
 
@@ -87,6 +88,7 @@ export class VehiculoComponent implements OnInit {
 
   cerrarModalCrear() {
     this.mostrarModalCrear = false;
+    this.resetearVariables();
   }
 
   guardarVehiculo() {
@@ -110,6 +112,7 @@ export class VehiculoComponent implements OnInit {
   cerrarModalVer() {
     this.mostrarModalVer = false;
     this.vehiculoSeleccionado = null;
+    this.resetearVariables();
   }
 
   abrirModalEditar(vehiculo: VehiculoModel) {
@@ -121,6 +124,7 @@ export class VehiculoComponent implements OnInit {
   cerrarModalEditar() {
     this.mostrarModalEditar = false;
     this.vehiculoSeleccionado = null;
+    this.resetearVariables();
   }
 
   actualizarVehiculo() {
@@ -131,17 +135,20 @@ export class VehiculoComponent implements OnInit {
       // Por ahora solo cerramos el modal
       this.cerrarModalEditar();
       this.cargarVehiculos();
+      this.resetearVariables();
     }
   }
 
   abrirModalEliminar(vehiculo: VehiculoModel) {
     this.vehiculoSeleccionado = vehiculo;
     this.mostrarModalEliminar = true;
+    this.resetearVariables();
   }
 
   cerrarModalEliminar() {
     this.mostrarModalEliminar = false;
     this.vehiculoSeleccionado = null;
+    this.resetearVariables();
   }
 
   confirmarEliminar() {
@@ -259,5 +266,16 @@ export class VehiculoComponent implements OnInit {
       }
     });
   }
+
+  resetearVariables() {
+    this.bastidorVerificado = false;
+    this.matriculaVerificado = false;
+    this.personaEncontrada = null;
+    this.personaNoEncontrada = false;
+    this.vehiculoSeleccionado = null;
+    this.vehiculoForm.reset();
+    this.matriculaExistente = false;
+  }
+
 }
 

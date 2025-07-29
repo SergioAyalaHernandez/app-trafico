@@ -56,10 +56,10 @@
       <div class="bg-gray-100 px-4 py-3 border-b">
         <h5 class="font-semibold text-gray-700">Infracciones por Importe</h5>
       </div>
-      <div class="p-4">
+      <div class="p-4" style="min-height: 300px; position: relative;">
         <canvas baseChart
                 [data]="infraccionesPorImporteChart"
-                [type]="'pie'"
+                [type]="'bar'"
                 [options]="pieChartOptions">
         </canvas>
       </div>
@@ -153,9 +153,7 @@
           <select class="bg-white border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   [(ngModel)]="unidadSeleccionada"
                   (change)="cargarInfraccionesPorUnidad()">
-            <option value="1">Unidad 1</option>
-            <option value="2">Unidad 2</option>
-            <option value="3">Unidad 3</option>
+            <option *ngFor="let unidad of unidades" [value]="unidad.id">{{unidad.nombre}}</option>
           </select>
         </div>
       </div>
